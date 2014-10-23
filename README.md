@@ -7,7 +7,7 @@
 First, add `broccoli-testem` as a dependency:
 
 ```shell
-npm install --save-dev broccoli-testem
+npm install -g broccoli-testem
 ```
 
 Then, run:
