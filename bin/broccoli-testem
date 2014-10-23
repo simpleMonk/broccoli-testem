@@ -11,8 +11,8 @@ var broccoli = require(broccoliPath)
 
 
 program
-  .option('-p, --port <port>', 'Specify port [7000]', 7000)
-  .option('-c, --config <config>', 'Specify config file [testem.json]', 'testem.json')
+  .option('-p, --port <port>', 'Specify port [7357]')
+  .option('-c, --config <config>', 'Specify config file [testem.json]')
   .parse(process.argv)
 
 
