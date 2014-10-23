@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+var program   = require('commander')
+var resolve   = require('resolve')
+var testem    = require('../lib/tasks/testem')
+
+var broccoliPath = resolve.sync('broccoli', {
+  basedir: process.cwd()
+})
+var broccoli = require(broccoliPath)
+
+
+program
+  .option('-p, --port <port>', 'Specify port [7000]', 7000)
+  .option('-c, --config <config>', 'Specify config file [testem.json]', 'testem.json')
+  .parse(process.argv)
+
+
+var run = function (options) {
+  var tree = broccoli.loadBrocfile()
+  var builder = new broccoli.Builder(tree)
+
+  builder
+    .build()
+    .then(function(hash) {
+      return testem.run(options, hash.directory)
+    })
+    .finally(function () {
+      return builder.cleanup()
+    })
+    .then(function () {
+      process.exit(0)
+    })
+    .catch(function (err) {
+      // Should show file and line/col if present
+      if (err.file) {
+        console.error('File: ' + err.file)
+      }
+      console.error(err.stack)
+      console.error('\nBuild failed')
+      process.exit(1)
+    });
+};
+
+run({
+  port: program.port,
+  config: program.config
+});
