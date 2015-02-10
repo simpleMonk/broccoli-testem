@@ -11,6 +11,10 @@
   "bin": {
     "broccoli-testem": "bin/broccoli-testem"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/iMedicare/broccoli-testem.git"
+  },
   "dependencies": {
     "resolve": "^1.0.0",
     "commander": "^2.4.0",
